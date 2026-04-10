@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
+from model import db, Bands, Members, Albums
 import os
 
 # Create our Flask app object
@@ -11,13 +12,7 @@ CONFIG_TYPE = os.getenv('CONFIG_TYPE', default='config.DevelopmentConfig')
 app.config.from_object(CONFIG_TYPE)
 
 # Create an instance of SQLAlchemy as our db object
-db = SQLAlchemy(app)
-
-# ==========================
-# DATABASE MODELS
-# ==========================
-
-# Set up our database models here
+db.init_app(app)
 
 # ==========================
 # ROUTES
@@ -27,6 +22,58 @@ db = SQLAlchemy(app)
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/bands/add', methods=['GET', 'POST'])
+def add_band():
+    if request.method == 'POST':
+        new_band = Bands(
+            BandName=request.form['bandname'],
+            FormedYear=request.form['formedyear'],
+            HomeLocation=request.form['homelocation']
+        )
+        db.session.add(new_band)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add_band.html')
+
+@app.route('/members/add', methods=['GET', 'POST'])
+def add_member():
+    bands = Bands.query.all()  # Students see querying with relationships
+    if request.method == 'POST':
+        new_member = Members(
+            MemberName=request.form['membername'],
+            MainPosition=request.form['mainposition'],
+            BandID=request.form['bandid']
+        )
+        db.session.add(new_member)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add_member.html', bands=bands)
+
+@app.route('/albums/add', methods=['GET', 'POST'])
+def add_album():
+    bands = Bands.query.all()
+    if request.method == 'POST':
+        new_album = Albums(
+            AlbumTitle=request.form['albumtitle'],
+            ReleaseYear=request.form['releaseyear'],
+            BandID=request.form['bandid']
+        )
+        db.session.add(new_album)
+        db.session.commit()
+        return redirect(url_for('index'))
+    return render_template('add_album.html', bands=bands)
+
+@app.route('/bands/view')
+def view_by_band():
+    bands = Bands.query.all()
+    return render_template('display_by_band.html', bands=bands)
+
+@app.route('/bands/view/<int:id>')
+def view_band(id):
+    # Shows real database relationship querying
+    band = Bands.query.get_or_404(id)
+    return render_template('display_by_band.html', bands=[band])
 
 
 # Create DB and tables if they don't exist

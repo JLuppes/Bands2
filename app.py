@@ -19,9 +19,25 @@ db.init_app(app)
 # ==========================
 
 # Home page view
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
+@app.route('/bands/view')
+def view_by_band():
+    bands = Bands.query.all()
+    return render_template('display_by_band.html', bands=bands)
+
+
+@app.route('/bands/view/<int:id>')
+def view_band(id):
+    # Shows real database relationship querying
+    band = Bands.query.get_or_404(id)
+    return render_template('display_by_band.html', bands=[band])
+
 
 @app.route('/bands/add', methods=['GET', 'POST'])
 def add_band():
@@ -35,6 +51,7 @@ def add_band():
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('add_band.html')
+
 
 @app.route('/members/add', methods=['GET', 'POST'])
 def add_member():
@@ -50,6 +67,7 @@ def add_member():
         return redirect(url_for('index'))
     return render_template('add_member.html', bands=bands)
 
+
 @app.route('/albums/add', methods=['GET', 'POST'])
 def add_album():
     bands = Bands.query.all()
@@ -63,17 +81,6 @@ def add_album():
         db.session.commit()
         return redirect(url_for('index'))
     return render_template('add_album.html', bands=bands)
-
-@app.route('/bands/view')
-def view_by_band():
-    bands = Bands.query.all()
-    return render_template('display_by_band.html', bands=bands)
-
-@app.route('/bands/view/<int:id>')
-def view_band(id):
-    # Shows real database relationship querying
-    band = Bands.query.get_or_404(id)
-    return render_template('display_by_band.html', bands=[band])
 
 
 # Create DB and tables if they don't exist

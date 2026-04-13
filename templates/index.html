@@ -1,9 +1,29 @@
 {% extends 'base.html' %}
-
-{% block title %}
-{{super()}} - Home
-{% endblock %}
-
-{% block content %}
-<h2>Home page!</h2>
+{% block title %} {{super()}} - Home {% endblock %}
+{%block content %}
+<div class="px-4 py-5 my-5 text-center">
+  <img
+    class="d-block mx-auto mb-4"
+    src="{{url_for('static', filename='logo.png')}}"
+    alt=""
+    width="64"
+    height="64"
+  />
+  <h1 class="display-5 fw-bold text-body-emphasis">Bands 2</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Welcome to Bands 2 - The Sequel to Bands!</p>
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+      <a href="{{url_for('view_by_band')}}">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">
+          View Bands
+        </button></a
+      >
+      <a href="{{url_for('add_band')}}">
+        <button type="button" class="btn btn-outline-secondary btn-lg px-4">
+          Add New Band
+        </button></a
+      >
+    </div>
+  </div>
+</div>
 {% endblock %}

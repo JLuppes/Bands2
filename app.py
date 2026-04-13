@@ -34,9 +34,8 @@ def view_by_band():
 
 @app.route('/bands/view/<int:id>')
 def view_band(id):
-    # Shows real database relationship querying
     band = Bands.query.get_or_404(id)
-    return render_template('display_by_band.html', bands=[band])
+    return render_template('view_band.html', band=band)
 
 
 @app.route('/bands/add', methods=['GET', 'POST'])

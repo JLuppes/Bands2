@@ -4,7 +4,7 @@
 
 {% for band in bands %}
 <section>
-    <h3>{{ band.BandName }} ({{ band.FormedYear }})</h3>
+    <h3><a href="{{url_for('view_band', id=band.BandID)}}">{{ band.BandName }} ({{ band.FormedYear }})</a></h3>
     <p><strong>Home:</strong> {{ band.HomeLocation }}</p>
 
     <h4>Members</h4>

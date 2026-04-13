@@ -1,39 +1,120 @@
 <div class="container">
   <footer
-    class="footer d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top fixed-bottom mt-auto"
+    class="footer mt-auto py-3 bg-body-tertiary row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top"
   >
-    <p class="col-md-4 mb-0 text-body-secondary">© 2026 Company, Inc</p>
-    <a
-      href="{{url_for('index')}}"
-      class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
-      aria-label="Bands 2"
-    >
-      <img
-        class="bi me-2"
-        width="32"
-        height="32"
-        src="{{url_for('static', filename='logo.png')}}"
-      />
-    </a>
+    <div class="col mb-3">
+      <a
+        href="{{url_for('index')}}"
+        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+        aria-label="Bands 2"
+      >
+        <img
+          class="bi me-2"
+          width="32"
+          height="32"
+          src="{{url_for('static', filename='logo.png')}}"
+        />
+      </a>
+      <p class="col-md-4 mb-0 text-body-secondary">© 2026</p>
+    </div>
+    <div class="col mb-3"></div>
+    <div class="col mb-3">
+      <h5>Bands</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a
+            href="{{url_for('view_by_band')}}"
+            class="nav-link p-0 text-body-secondary"
+            >View Bands</a
+          >
+        </li>
+        <li class="nav-item mb-2">
+          <a
+            href="{{url_for('add_band')}}"
+            class="nav-link p-0 text-body-secondary"
+            >Add Band</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="col mb-3">
+      <h5>Albums</h5>
+
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-body-secondary"
+            >View Albums (Coming Soon!)</a
+          >
+        </li>
+        <li class="nav-item mb-2">
+          <a
+            href="{{url_for('add_album')}}"
+            class="nav-link p-0 text-body-secondary"
+            >Add Album</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="col mb-3">
+      <h5>Members</h5>
+
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a
+            href="#"
+            class="nav-link p-0 text-body-secondary"
+            >View Members (Coming Soon!)</a
+          >
+        </li>
+        <li class="nav-item mb-2">
+          <a
+            href="{{url_for('add_member')}}"
+            class="nav-link p-0 text-body-secondary"
+            >Add Member</a
+          >
+        </li>
+      </ul>
+    </div>
+  </footer>
+</div>
+<!--
+
     <ul class="nav col-md-4 justify-content-end">
       <li class="nav-item">
-        <a href="{{url_for('index')}}" class="nav-link px-2 text-body-secondary">Home</a>
+        <a href="{{url_for('index')}}" class="nav-link px-2 text-body-secondary"
+          >Home</a
+        >
       </li>
       <li class="nav-item">
-        <a href="{{url_for('view_by_band')}}" class="nav-link px-2 text-body-secondary">View Bands</a>
+        <a
+          href="{{url_for('view_by_band')}}"
+          class="nav-link px-2 text-body-secondary"
+          >View Bands</a
+        >
       </li>
       <li class="nav-item">
-        <a href="{{url_for('add_band')}}" class="nav-link px-2 text-body-secondary">Add Bands</a>
+        <a
+          href="{{url_for('add_band')}}"
+          class="nav-link px-2 text-body-secondary"
+          >Add Bands</a
+        >
       </li>
       <li class="nav-item">
-        <a href="{{url_for('add_member')}}" class="nav-link px-2 text-body-secondary">Add Members</a>
+        <a
+          href="{{url_for('add_member')}}"
+          class="nav-link px-2 text-body-secondary"
+          >Add Members</a
+        >
       </li>
       <li class="nav-item">
-        <a href="{{url_for('add_album')}}" class="nav-link px-2 text-body-secondary">Add Albums</a>
+        <a
+          href="{{url_for('add_album')}}"
+          class="nav-link px-2 text-body-secondary"
+          >Add Albums</a
+        >
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link px-2 text-body-secondary">Admin</a>
       </li>
-    </ul>
-  </footer>
-</div>
+    </ul> -->

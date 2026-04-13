@@ -1,6 +1,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 20px;
+  background-color: powderblue;
 }
 
 header {
@@ -16,6 +17,6 @@ button {
   margin-top: 10px;
 }
 
-.band-focus ul li, .admin-list li {
+.band-focus ul li {
   list-style-type: none;
 }

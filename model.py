@@ -1,6 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_admin import Admin
 
 db = SQLAlchemy()
+
+admin = Admin()
+
 
 class Bands(db.Model):
     BandID = db.Column(db.Integer, primary_key=True)

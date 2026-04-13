@@ -1,0 +1,48 @@
+{% extends 'admin/master.html' %} {% block body %}
+<div class="px-4 py-5 my-5 text-center">
+  <img
+    class="d-block mx-auto mb-4"
+    src="{{url_for('static', filename='logo.png')}}"
+    alt=""
+    width="64"
+    height="64"
+  />
+  <h1 class="display-5 fw-bold text-body-emphasis">Bands 2</h1>
+  <div class="col-lg-6 mx-auto">
+    <p class="lead mb-4">Welcome to Bands 2 - The Sequel to Bands!</p>
+    <div
+      class="d-grid gap-2 flex-column align-items-sm-center justify-content-sm-center"
+    >
+      <a href="{{url_for('view_by_band')}}">
+        <button type="button" class="btn btn-primary btn-lg px-4 gap-3">
+          View Bands
+        </button></a
+      >
+      <br />
+      <ul class="admin-list" style="list-style-type: none">
+        <li style="list-style-type: none">
+          <a href="{{url_for('bands.index_view')}}">
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
+              Admin Bands
+            </button></a
+          >
+        </li>
+        <li style="list-style-type: none">
+          <a href="{{url_for('members.index_view')}}">
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
+              Admin Members
+            </button></a
+          >
+        </li>
+        <li style="list-style-type: none">
+          <a href="{{url_for('albums.index_view')}}">
+            <button type="button" class="btn btn-outline-secondary btn-lg px-4">
+              Admin Albums
+            </button></a
+          >
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

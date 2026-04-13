@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
-from model import db, Bands, Members, Albums
+from model import db, Bands, Members, Albums, admin
+from flask_admin.contrib.sqla import ModelView
 import os
 
 # Create our Flask app object
@@ -13,6 +14,12 @@ app.config.from_object(CONFIG_TYPE)
 
 # Create an instance of SQLAlchemy as our db object
 db.init_app(app)
+
+admin.init_app(app)
+admin.add_view(ModelView(Bands, db.session, category="Bands"))
+admin.add_view(ModelView(Members, db.session, category="Members"))
+admin.add_view(ModelView(Albums, db.session, category="Albums"))
+
 
 # ==========================
 # ROUTES

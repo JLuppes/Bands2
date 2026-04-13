@@ -16,6 +16,6 @@ button {
   margin-top: 10px;
 }
 
-.band-focus ul li {
+.band-focus ul li, .admin-list li {
   list-style-type: none;
 }

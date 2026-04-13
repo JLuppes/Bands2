@@ -1,4 +1,6 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+{% block title %} {{super()}} - {{band.BandName}} {% endblock %}
+{% block content %}
 <section>
     <div class="container my-5">
         <div class="band-focus p-5 text-center bg-body-tertiary rounded-3">

@@ -86,7 +86,7 @@ def add_member():
         )
         db.session.add(new_member)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('view_by_member'))
     return render_template('add_member.html', bands=bands)
 
 
@@ -101,7 +101,7 @@ def add_album():
         )
         db.session.add(new_album)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('view_by_band'))
     return render_template('add_album.html', bands=bands)
 
 

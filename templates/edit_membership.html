@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %} {{super()}} - Edit Membership {% endblock %}
+{% block content %}
+<h2>Edit Membership</h2>
+<form method="post" id="membershipForm">
+    <input type="hidden" name="membership_id" value={{membership.MembershipID}}>
+    <label>Band:</label>
+    <select name="bandid">
+        <option value="">-- select band --</option>
+        {% for band in bands %}
+        <option
+            {% if band.BandID==membership.BandID %} selected {% endif %}
+            value="{{ band.BandID }}"
+        >
+            {{ band.BandName}}
+        </option>
+        {% endfor %}
+    </select><br />
+    <label>Member:</label>
+    <select name="memberid">
+        <option value="">-- select member --</option>
+        {% for member in members %}
+        <option
+            {% if member.MemberID==membership.MemberID %} selected {% endif %}
+            value="{{ member.MemberID }}"
+        >
+            {{member.MemberName }}
+        </option>
+        {% endfor %}
+    </select>
+    <br />
+    <label>Role:</label>
+    <input type="text" name="role" value="{{membership.Role}}" /><br />
+    <label>Start Year:</label>
+    <input type="number" name="startyear" value="{{membership.StartYear}}" /><br />
+    <label>End Year (leave blank if active):</label>
+    <input type="number" name="endyear" value="{{membership.StartYear}}" />
+    <br />
+    <button type="submit">Save Membership</button>
+</form>
+{% endblock %}

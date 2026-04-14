@@ -48,6 +48,20 @@ def view_band(id):
     return render_template('view_band.html', band=band, memberships=memberships)
 
 
+@app.route('/members/view')
+def view_by_member():
+    members = Members.query.all()
+    memberships = Memberships.query.all()
+    return render_template('display_by_member.html', members=members, memberships=memberships)
+
+
+@app.route('/members/view/<int:id>')
+def view_member(id):
+    member = Members.query.get_or_404(id)
+    memberships = Memberships.query.all()
+    return render_template('view_member.html', member=member, memberships=memberships)
+
+
 @app.route('/bands/add', methods=['GET', 'POST'])
 def add_band():
     if request.method == 'POST':

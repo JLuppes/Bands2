@@ -142,6 +142,43 @@ def delete_membership(id):
     return redirect(url_for('view_by_band'))
 
 
+@app.route('/bands/edit/<int:band_id>', methods=['GET', 'POST'])
+def edit_band(band_id):
+    band = Bands.query.get_or_404(band_id)
+
+    if request.method == 'POST':
+        try:
+
+            band.Name = request.form.get('bandname')
+            band.FormedYear = request.form.get('formedyear')
+            band.HomeLocation = request.form.get('homelocation')
+
+            db.session.add(band)
+            db.session.commit()
+            return redirect(url_for('view_by_band'))
+
+        except Exception as e:
+            db.session.rollback()
+            error = f"Error updating band: {e}"
+            return render_template('edit_band.html', band=band, error=error)
+
+    return render_template('edit_band.html', band=band)
+
+
+@app.route('/bands/delete/<int:band_id>')
+def delete_band(band_id):
+    band = Bands.query.get_or_404(band_id)
+
+    try:
+        db.session.delete(band)
+        db.session.commit()
+        return redirect(url_for('view_by_band'))
+    except Exception as e:
+        db.session.rollback()
+        error = f"Error deleting band: {e}"
+        return redirect(url_for('view_by_band'))
+
+
 # Create DB and tables if they don't exist
 with app.app_context():
     db.create_all()

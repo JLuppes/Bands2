@@ -6,7 +6,10 @@ load_dotenv()
 
 # Get the base directory for the application
 basedir = os.path.abspath(os.path.dirname(__file__))
-instance_folder =  os.path.join(basedir, "instance")
+
+# Join the app directory to the internal instance folder
+# instance_folder =  os.path.join(basedir, "instance")
+instance_folder =  basedir # Temporarily removed instance folder due to permissions complications
 
 # Pull the db name from the .env file if specified
 imported_dbname = os.environ.get('DB_NAME', 'bands2.db')

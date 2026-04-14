@@ -14,7 +14,7 @@
             <ul>
                 {% for m in band.memberships %}
                 <li>
-                    {{ m.member.MemberName }} - {{ m.Role or m.member.MainPosition }}
+                    <a href="{{url_for('view_member', id=m.member.MemberID)}}">{{ m.member.MemberName }}</a> - {{ m.Role or m.member.MainPosition }}
                     {% if m.StartYear %} ({{ m.StartYear }}{% if m.EndYear %} – {{ m.EndYear }}{% else %} - present{%
                     endif
                     %}){% endif %}

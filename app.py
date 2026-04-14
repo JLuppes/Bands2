@@ -68,8 +68,7 @@ def add_member():
     if request.method == 'POST':
         new_member = Members(
             MemberName=request.form['membername'],
-            MainPosition=request.form['mainposition'],
-            BandID=request.form['bandid']
+            MainPosition=request.form['mainposition']
         )
         db.session.add(new_member)
         db.session.commit()

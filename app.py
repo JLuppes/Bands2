@@ -116,11 +116,12 @@ def add_membership():
 
 
 @app.route('/memberships/edit/<int:id>', methods=['GET', 'POST'])
-def edit_membership(id):
-    membership = Memberships.query.get_or_404(id)
+def edit_membership(membership_id):
+    membership = Memberships.query.get_or_404(membership_id)
     bands = Bands.query.all()
     members = Members.query.all()
     if request.method == 'POST':
+        membership.MembershipID = request.form.get('membership_id')
         membership.BandID = request.form.get('bandid')
         membership.MemberID = request.form.get('memberid')
         membership.Role = request.form.get('role')

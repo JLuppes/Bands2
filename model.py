@@ -31,17 +31,17 @@ class Members(db.Model):
 class Memberships(db.Model):
     MembershipID = db.Column(db.Integer, primary_key=True)
     BandID = db.Column(db.Integer, db.ForeignKey(
-        'band.bandID', nullable=False))
+        'bands.BandID'), nullable=False)
     MemberID = db.Column(db.Integer, db.ForeignKey(
-        'member.memberID', nullable=False))
+        'members.MemberID'), nullable=False)
     Role = db.Column(db.String(80))
     StartYear = db.Column(db.Integer)
-    EndYear = db.Column(db.Integer)  # NULL if still active
+    EndYear = db.Column(db.Integer)
 
 
 class Albums(db.Model):
     AlbumID = db.Column(db.Integer, primary_key=True)
     BandID = db.Column(db.Integer, db.ForeignKey(
-        'band.BandID'), nullable=False)
+        'bands.BandID'), nullable=False)
     AlbumTitle = db.Column(db.String(80), nullable=False)
     ReleaseYear = db.Column(db.Integer)

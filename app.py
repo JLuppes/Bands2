@@ -42,7 +42,8 @@ def view_by_band():
 @app.route('/bands/view/<int:id>')
 def view_band(id):
     band = Bands.query.get_or_404(id)
-    return render_template('view_band.html', band=band)
+    memberships = Memberships.query.all()
+    return render_template('view_band.html', band=band, memberships=memberships)
 
 
 @app.route('/bands/add', methods=['GET', 'POST'])

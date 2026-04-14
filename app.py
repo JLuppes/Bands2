@@ -58,7 +58,7 @@ def add_band():
         )
         db.session.add(new_band)
         db.session.commit()
-        return redirect(url_for('index'))
+        return redirect(url_for('view_by_band'))
     return render_template('add_band.html')
 
 

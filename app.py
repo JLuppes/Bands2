@@ -18,6 +18,7 @@ db.init_app(app)
 admin.init_app(app)
 admin.add_view(ModelView(Bands, db.session, category="Bands"))
 admin.add_view(ModelView(Members, db.session, category="Members"))
+admin.add_view(ModelView(Memberships, db.session, category="Members"))
 admin.add_view(ModelView(Albums, db.session, category="Albums"))
 
 

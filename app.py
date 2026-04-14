@@ -36,7 +36,8 @@ def index():
 @app.route('/bands/view')
 def view_by_band():
     bands = Bands.query.all()
-    return render_template('display_by_band.html', bands=bands)
+    memberships = Memberships.query.all()
+    return render_template('display_by_band.html', bands=bands, memberships=memberships)
 
 
 @app.route('/bands/view/<int:id>')
@@ -112,6 +113,32 @@ def add_membership():
             error = f"Error adding new membership: {e}"
             return render_template('add_membership.html', bands=bands, members=members, error=error)
     return render_template('add_membership.html', bands=bands, members=members)
+
+
+@app.route('/memberships/edit/<int:id>', methods=['GET', 'POST'])
+def edit_membership(id):
+    membership = Memberships.query.get_or_404(id)
+    bands = Bands.query.all()
+    members = Members.query.all()
+    if request.method == 'POST':
+        membership.BandID = request.form.get('bandid')
+        membership.MemberID = request.form.get('memberid')
+        membership.Role = request.form.get('role')
+        membership.StartYear = request.form.get('startyear') or None
+        membership.EndYear = request.form.get('endyear') or None
+        db.session.commit()
+        # flash('Membership updated', 'success')
+        return redirect(url_for('view_by_band'))
+    return render_template('edit_membership.html', membership=membership, bands=bands, members=members)
+
+
+@app.route('/memberships/delete/<int:id>')
+def delete_membership(id):
+    membership = Memberships.query.get_or_404(id)
+    db.session.delete(membership)
+    db.session.commit()
+    # flash('Membership removed', 'success')
+    return redirect(url_for('view_by_band'))
 
 
 # Create DB and tables if they don't exist

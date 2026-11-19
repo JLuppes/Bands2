@@ -24,7 +24,18 @@
             <h4>Albums</h4>
             <ul>
                 {% for album in band.albums %}
-                <li>{{ album.AlbumTitle }} ({{ album.ReleaseYear }})</li>
+                <li>
+                    {{ album.AlbumTitle }} ({{ album.ReleaseYear }})
+                    {% set ns = namespace(names=[]) %}
+                    {% for collaborating_band in album.bands %}
+                        {% if collaborating_band.BandID != band.BandID %}
+                            {% set ns.names = ns.names + [collaborating_band.BandName] %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if ns.names|length > 0 %}
+                    - Collaborating bands: {{ ns.names|join(', ') }}
+                    {% endif %}
+                </li>
                 {% endfor %}
             </ul>
             </p>

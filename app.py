@@ -114,9 +114,12 @@ def add_album():
     if request.method == 'POST':
         new_album = Albums(
             AlbumTitle=request.form['albumtitle'],
-            ReleaseYear=request.form['releaseyear'],
-            BandID=request.form['bandid']
+            ReleaseYear=request.form['releaseyear']
         )
+        for bandid in request.form.getlist('bandid'):
+            band = Bands.query.get(bandid)
+            if band:
+                new_album.bands.append(band)
         db.session.add(new_album)
         db.session.commit()
         return redirect(url_for('index'))

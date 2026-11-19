@@ -9,10 +9,15 @@
 
             <p><strong>Home:</strong> {{ band.HomeLocation }}</p>
 
-            <h4>Members</h4>
+            <h4>Members / Memberships</h4>
             <ul>
-                {% for member in band.members %}
-                <li>{{ member.MemberName }} – {{ member.MainPosition }}</li>
+                {% for membership in band.memberships %}
+                <li>{{ membership.member.MemberName }} – {{ membership.member.MainPosition }}
+                    {{ membership.MemberName }} - {{ membership.Role or membership.member.MainPosition }}
+                    {% if membership.StartYear %} ({{ membership.StartYear }} - {{ membership.EndYear or 'Present' }}) {% endif %}
+                </li>
+                {% else %}
+                <li>No members assigned yet.</li>
                 {% endfor %}
             </ul>
 

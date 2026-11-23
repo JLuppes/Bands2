@@ -20,7 +20,18 @@
     <h4>Albums</h4>
     <ul>
         {% for album in band.albums %}
-        <li>{{ album.AlbumTitle }} ({{ album.ReleaseYear }})</li>
+        <li>
+            {{ album.AlbumTitle }} ({{ album.ReleaseYear }})
+            {% set collaborators = album.bands|rejectattr('BandID', 'equalto', band.BandID)|list %}
+            {% if collaborators %}
+            <span>with
+                {% for collaborator in collaborators %}
+                {% if not loop.first %}, {% endif %}
+                <a href="{{ url_for('view_band', id=collaborator.BandID) }}">{{ collaborator.BandName }}</a>
+                {% endfor %}
+            </span>
+            {% endif %}
+        </li>
         {% endfor %}
     </ul>
 </section>

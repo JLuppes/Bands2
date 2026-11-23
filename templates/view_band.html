@@ -12,14 +12,29 @@
             <h4>Members</h4>
             <ul>
                 {% for member in band.members %}
-                <li>{{ member.MemberName }} – {{ member.MainPosition }}</li>
+                <li>
+                    <a href="{{ url_for('view_member', id=member.MemberID) }}">{{ member.MemberName }}</a>
+                    {{ member.MainPosition }}
+                </li>
                 {% endfor %}
             </ul>
 
             <h4>Albums</h4>
             <ul>
                 {% for album in band.albums %}
-                <li>{{ album.AlbumTitle }} ({{ album.ReleaseYear }})</li>
+                <li>
+                    <a href="{{ url_for('view_albums') }}#album-{{ album.AlbumID }}">{{ album.AlbumTitle }}</a>
+                    ({{ album.ReleaseYear }})
+                    {% set collaborators = album.bands|rejectattr('BandID', 'equalto', band.BandID)|list %}
+                    {% if collaborators %}
+                    <span>with
+                        {% for collaborator in collaborators %}
+                        {% if not loop.first %}, {% endif %}
+                        <a href="{{ url_for('view_band', id=collaborator.BandID) }}">{{ collaborator.BandName }}</a>
+                        {% endfor %}
+                    </span>
+                    {% endif %}
+                </li>
                 {% endfor %}
             </ul>
             </p>

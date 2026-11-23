@@ -12,7 +12,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 instance_folder =  basedir # Temporarily removed instance folder due to permissions complications
 
 # Pull the db name from the .env file if specified
-imported_dbname = os.environ.get('DB_NAME', 'bands2.db')
+imported_dbname = os.environ.get('DB_NAME', 'bands2_collaborations.db')
 
 # Add the filetype extension to the database name
 formed_dbname = imported_dbname if imported_dbname.endswith(

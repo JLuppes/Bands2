@@ -1,30 +1,47 @@
-{% extends "base.html" %}
-{% block title %} {{super()}} - Bands {% endblock %}
+{% extends "base.html" %} {% block title %} {{super()}} - Bands {% endblock %}
 {% block content %}
 <h2>Bands</h2>
 {% if bands|length < 1 %}
 <p>No bands in database!</p>
-{% else %}
-{% for band in bands %}
+{% else %} {% for band in bands %}
 <section>
-    <h3><a href="{{url_for('view_band', id=band.BandID)}}">{{ band.BandName }} ({{ band.FormedYear }})</a></h3>
-    <p><strong>Home:</strong> {{ band.HomeLocation }}</p>
+  <h3>
+    <a href="{{url_for('view_band', id=band.BandID)}}"
+      >{{ band.BandName }} ({{ band.FormedYear }})</a
+    >
+  </h3>
 
-    <h4>Members</h4>
-    <ul>
-        {% for member in band.members %}
-        <li>{{ member.MemberName }} – {{ member.MainPosition }}</li>
-        {% endfor %}
-    </ul>
+  <a href="{{ url_for('edit_band', band_id=band.BandID) }}">Edit</a> |
+  <a href="{{ url_for('delete_band', band_id=band.BandID) }}">Delete</a>
 
-    <h4>Albums</h4>
-    <ul>
-        {% for album in band.albums %}
-        <li>{{ album.AlbumTitle }} ({{ album.ReleaseYear }})</li>
-        {% endfor %}
-    </ul>
+  <p><strong>Home:</strong> {{ band.HomeLocation }}</p>
+
+  <h4>Members</h4>
+  <ul>
+    {% for m in band.memberships %}
+    <li>
+      {{ m.member.MemberName }} - {{ m.Role or m.member.MainPosition }} {% if
+      m.StartYear %} ({{ m.StartYear }}{% if m.EndYear %} – {{ m.EndYear }}{%
+      else %} - present{% endif %}){% endif %} &nbsp;
+      <a href="{{ url_for('edit_memberships', id=m.MembershipID) }}">Edit</a> |
+      <a href="{{ url_for('delete_membership', id=m.MembershipID) }}">Delete</a>
+    </li>
+    {% else %}
+    <li><em>No members assigned yet</em></li>
+    {% endfor %}
+  </ul>
+
+  <h4>Albums</h4>
+  <ul>
+    {% for o in band.ownerships %}
+    <li>
+      {{ o.album.AlbumTitle }} ({{ o.album.ReleaseYear }})
+      <a href="{{ url_for('edit_ownership', id=o.OwnershipID) }}">Edit</a> |
+      <a href="{{ url_for('delete_ownership', id=o.OwnershipID) }}">Delete</a>
+
+    </li>
+    {% endfor %}
+  </ul>
 </section>
-<hr>
-{% endfor %}
-{% endif %}
-{% endblock %}
+<hr />
+{% endfor %} {% endif %} {% endblock %}

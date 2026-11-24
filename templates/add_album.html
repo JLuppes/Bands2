@@ -6,8 +6,8 @@
     <label>Album Title:</label><input type="text" name="albumtitle"><br>
     <label>Release Year:</label><input type="number" name="releaseyear"><br>
 
-    <label>Band:</label>
-    <select name="bandid">
+    <label>Bands:</label>
+    <select name="bandid" multiple>
         {% for band in bands %}
         <option value="{{ band.BandID }}">{{ band.BandName }}</option>
         {% endfor %}

@@ -5,28 +5,40 @@ db = SQLAlchemy()
 
 admin = Admin()
 
+band_albums = db.Table(
+	'band_albums',
+	db.Column('BandID', db.Integer, db.ForeignKey('bands.BandID'), primary_key=True),
+	db.Column('AlbumID', db.Integer, db.ForeignKey('albums.AlbumID'), primary_key=True)
+)
+
 
 class Bands(db.Model):
-    BandID = db.Column(db.Integer, primary_key=True)
-    BandName = db.Column(db.String(80), nullable=False)
-    FormedYear = db.Column(db.Integer)
-    HomeLocation = db.Column(db.String(80))
-    # Relationship: One band has many members + albums
-    members = db.relationship('Members', backref='band', lazy=True)
-    albums = db.relationship('Albums', backref='band', lazy=True)
-
+	BandID = db.Column(db.Integer, primary_key=True)
+	BandName = db.Column(db.String(80), nullable=False)
+	FormedYear = db.Column(db.Integer)
+	HomeLocation = db.Column(db.String(80))
+	# Relationship: One band has many members + albums
+	members = db.relationship('Memberships', backref='band', lazy=True)
+	albums = db.relationship('Albums', secondary=band_albums, back_populates='bands', lazy=True)
 
 class Members(db.Model):
-    MemberID = db.Column(db.Integer, primary_key=True)
-    BandID = db.Column(db.Integer, db.ForeignKey(
-        'bands.BandID'), nullable=False)
-    MemberName = db.Column(db.String(80), nullable=False)
-    MainPosition = db.Column(db.String(80))
-
+	MemberID = db.Column(db.Integer, primary_key=True)
+	# BandID = db.Column(db.Integer, db.ForeignKey(
+	#     'bands.BandID'), nullable=False)
+	MemberName = db.Column(db.String(80), nullable=False)
+	MainPosition = db.Column(db.String(80))
+	memberships = db.relationship('Memberships', backref = 'member', lazy=True)
 
 class Albums(db.Model):
-    AlbumID = db.Column(db.Integer, primary_key=True)
-    BandID = db.Column(db.Integer, db.ForeignKey(
-        'bands.BandID'), nullable=False)
-    AlbumTitle = db.Column(db.String(80), nullable=False)
-    ReleaseYear = db.Column(db.Integer)
+	AlbumID = db.Column(db.Integer, primary_key=True)
+	AlbumTitle = db.Column(db.String(80), nullable=False)
+	ReleaseYear = db.Column(db.Integer)
+	bands = db.relationship('Bands', secondary=band_albums, back_populates='albums', lazy=True)
+
+class Memberships(db.Model):
+	MembershipID = db.Column(db.Integer, primary_key=True)
+	BandID = db.Column(db.Integer, db.ForeignKey('bands.BandID'), nullable=False)
+	MemberID = db.Column(db.Integer, db.ForeignKey('members.MemberID'), nullable=False)
+	Role = db.Column(db.String(80))
+	StartYear = db.Column(db.Integer)
+	EndYear = db.Column(db.Integer)

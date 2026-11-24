@@ -1,4 +1,4 @@
-# Bands 2 - The Sequel to Bands
+# Bands 3 - The Triquel to Bands
 
 This is a Flask application that keeps track of various bands and their associated members, albums, and other information.
 
